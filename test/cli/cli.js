@@ -1,4 +1,3 @@
-#!/usr/bin/env ts-node
 "use strict";
 /**
  * Example CLI in TypeScript that:
