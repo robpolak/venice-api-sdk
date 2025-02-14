@@ -1,6 +1,14 @@
 // src/model/models.ts
 
 /**
+ * The possible model types supported by Venice.
+ */
+export enum ModelType {
+  TEXT = "text",
+  IMAGE = "image",
+}
+
+/**
  * Query parameters for listing models.
  */
 export interface ListModelsRequest {
@@ -15,6 +23,8 @@ export interface ListModelsRequest {
    * (If supported by the API)
    */
   offset?: number;
+
+  type: string;
 }
 
 /**
@@ -27,13 +37,32 @@ export interface Model {
   id: string;
 
   /**
-   * The name or display name for the model.
+   * The type of the model (e.g., text, image).
    */
-  name: string;
+  type: ModelType;
+
+  /**
+   * The object's type name, typically 'model'.
+   */
+  object: string;
+
+  /**
+   * The creation timestamp for the model.
+   */
+  created: number;
+
+  /**
+   * The owning entity, e.g., 'venice.ai'.
+   */
+  owned_by: string;
+
+  /**
+   * Any additional specs or configuration details for the model.
+   */
+  model_spec: Record<string, any>;
 
   /**
    * Additional fields as provided by the API.
-   * Use appropriate types if the documentation specifies them.
    */
   [key: string]: any;
 }
@@ -43,9 +72,14 @@ export interface Model {
  */
 export interface ListModelsResponse {
   /**
+   * Indicates the type of this object, likely 'list'.
+   */
+  object: string;
+
+  /**
    * An array of model objects.
    */
-  models: Model[];
+  data: Model[];
 
   /**
    * Total count or any other metadata the API returns.

@@ -24,6 +24,7 @@ export class ModelsApi extends ApiRequest {
   public async listModels(
     params?: ListModelsRequest
   ): Promise<ListModelsResponse> {
-    return this.get<ListModelsResponse>("/models", { params });
+    const resp = this.get<ListModelsResponse>("/models", { params });
+    return resp
   }
 }

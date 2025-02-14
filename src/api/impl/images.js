@@ -9,31 +9,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ModelsApi = void 0;
+exports.ImagesApi = void 0;
 const api_request_1 = require("../api-request");
 /**
- * This class provides methods to interact with the Models endpoints.
+ * Provides methods to interact with the Image generation endpoint.
  */
-class ModelsApi extends api_request_1.ApiRequest {
-    /**
-     * Constructs a new ModelsApi object.
-     *
-     * @param core - The VeniceCore instance containing user options (apiKey, etc).
-     */
+class ImagesApi extends api_request_1.ApiRequest {
     constructor(core) {
+        // Adjust if your base URL is different (e.g. https://api.venice.ai).
         super(core);
     }
     /**
-     * Lists all models available in the Venice API.
-     *
-     * @param params - Optional query parameters such as limit and offset.
-     * @returns A promise resolving to a ListModelsResponse object.
+     * POST /image/generate
+     * Generates one or more images based on the given prompt and model.
      */
-    listModels(params) {
+    generateImages(request) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = this.get("/models", { params });
-            return resp;
+            // According to the docs, the endpoint for image generation is /image/generate
+            return this.post("/image/generate", request);
         });
     }
 }
-exports.ModelsApi = ModelsApi;
+exports.ImagesApi = ImagesApi;
