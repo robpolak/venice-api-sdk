@@ -1,6 +1,6 @@
-import { ApiRequest } from "../api-request";
-import { VeniceCore } from "../../core/venice-core";
-import { ChatCompletionRequest, ChatCompletionResponse } from "../../model/chat";
+import { ApiRequest } from '../api-request';
+import { VeniceCore } from '../../core/venice-core';
+import { ChatCompletionRequest, ChatCompletionResponse } from '../../model/chat';
 /**
  * Provides methods to interact with the Chat Completions endpoint.
  */

@@ -1,12 +1,10 @@
-import { ModelType } from "./models";
-
 /**
  * Possible roles in a chat message.
  */
 export enum ChatMessageRole {
-  SYSTEM = "system",
-  USER = "user",
-  ASSISTANT = "assistant",
+  SYSTEM = 'system',
+  USER = 'user',
+  ASSISTANT = 'assistant',
 }
 
 /**
@@ -26,7 +24,6 @@ export interface ChatCompletionRequest {
    * The identifier of the Venice model to use (e.g., "fluently-xl", "flux-dev").
    */
   model: string;
-
 
   /**
    * The conversation so far.
@@ -48,7 +45,7 @@ export interface ChatCompletionRequest {
   /**
    * Any additional fields supported by Venice's chat endpoint.
    */
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 /**
@@ -74,5 +71,5 @@ export interface ChatCompletionResponse {
     completion_tokens: number;
     total_tokens: number;
   };
-  [key: string]: any;
+  [key: string]: unknown;
 }

@@ -1,13 +1,13 @@
-import { ApiRequest } from "../api-request";
-import { VeniceCore } from "../../core/venice-core";
-import { ChatCompletionRequest, ChatCompletionResponse } from "../../model/chat";
+import { ApiRequest } from '../api-request';
+import { VeniceCore } from '../../core/venice-core';
+import { ChatCompletionRequest, ChatCompletionResponse, ChatChoice } from '../../model/chat';
 
 function separateThinkAndAnswer(content: string): {
   thinkBlock: string;
   finalAnswer: string;
 } {
-  const startTag = "<think>";
-  const endTag = "</think>";
+  const startTag = '<think>';
+  const endTag = '</think>';
 
   const startIndex = content.indexOf(startTag);
   const endIndex = content.indexOf(endTag);
@@ -15,25 +15,26 @@ function separateThinkAndAnswer(content: string): {
   // If the <think> block is not found, just return the entire content as finalAnswer
   if (startIndex === -1 || endIndex === -1) {
     return {
-      thinkBlock: "",
+      thinkBlock: '',
       finalAnswer: content.trim(),
     };
   }
 
   // Extract the think block (everything between <think> and </think>)
-  const thinkBlock = content
-    .substring(startIndex + startTag.length, endIndex)
-    .trim();
+  const thinkBlock = content.substring(startIndex + startTag.length, endIndex).trim();
 
   // Extract the final answer (anything after </think>)
-  const finalAnswer = content
-    .substring(endIndex + endTag.length)
-    .trim();
+  const finalAnswer = content.substring(endIndex + endTag.length).trim();
 
   return {
     thinkBlock,
     finalAnswer,
   };
+}
+
+// Extend ChatChoice to include thinkBlock
+interface ExtendedChatChoice extends ChatChoice {
+  thinkBlock?: string;
 }
 
 /**
@@ -52,20 +53,19 @@ export class ChatApi extends ApiRequest {
   public async createChatCompletion(
     request: ChatCompletionRequest
   ): Promise<ChatCompletionResponse> {
-    const resp = await this.post<ChatCompletionResponse>("/chat/completions", request);
+    const resp = await this.post<ChatCompletionResponse>('/chat/completions', request);
 
     // Loop over each choice and parse out the <think> block from the content.
-    resp?.choices?.forEach((choice) => {
-      if (typeof choice?.message?.content === "string") {
+    resp?.choices?.forEach(choice => {
+      if (typeof choice?.message?.content === 'string') {
         const rawContent = choice.message.content;
         const { thinkBlock, finalAnswer } = separateThinkAndAnswer(rawContent);
 
         // Overwrite the message content with the final answer
         choice.message.answer = finalAnswer;
 
-        // Optionally attach the think block as a custom field on this choice.
-        // Casting to 'any' if you don't have a dedicated property in ChatChoice for it.
-        (choice as any).thinkBlock = thinkBlock;
+        // Attach the think block as a custom field on this choice.
+        (choice as ExtendedChatChoice).thinkBlock = thinkBlock;
       }
     });
 

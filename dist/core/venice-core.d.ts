@@ -3,7 +3,7 @@ export type VeniceSDKOptions = {
     baseUrl?: string;
     request?: {
         timeout?: number;
-        axiosParams?: Record<string, any>;
+        axiosParams?: Record<string, unknown>;
     };
 };
 export declare class VeniceCore {

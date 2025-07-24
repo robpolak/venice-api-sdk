@@ -21,7 +21,7 @@ class ModelsApi extends api_request_1.ApiRequest {
      * @returns A promise resolving to a ListModelsResponse object.
      */
     async listModels(params) {
-        const resp = this.get("/models", { params });
+        const resp = this.get('/models', { params });
         return resp;
     }
 }

@@ -64,3 +64,22 @@ package-lock.json
 .eslintcache
 *v8.log
 /lib/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Temporary/demo scripts
+oc.sh
+test-agent.sh
+demo-*.js
+
+# Test artifacts
+coverage/
+*.log
+test-results/

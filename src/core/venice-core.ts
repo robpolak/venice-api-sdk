@@ -1,11 +1,11 @@
 export type VeniceSDKOptions = {
-  apiKey?: string,
-  baseUrl?: string,
+  apiKey?: string;
+  baseUrl?: string;
   request?: {
-    timeout?: number
-    axiosParams?: Record<string, any>;
-  }
-}
+    timeout?: number;
+    axiosParams?: Record<string, unknown>;
+  };
+};
 
 export class VeniceCore {
   public options: VeniceSDKOptions;
@@ -13,9 +13,9 @@ export class VeniceCore {
   constructor(opts: VeniceSDKOptions) {
     this.options = {
       // options here
-      baseUrl: "https://api.venice.ai/api/v1",
+      baseUrl: 'https://api.venice.ai/api/v1',
 
-      ...opts
-    }
+      ...opts,
+    };
   }
 }

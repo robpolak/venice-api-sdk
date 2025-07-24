@@ -4,8 +4,8 @@
  * The possible model types supported by Venice.
  */
 export enum ModelType {
-  TEXT = "text",
-  IMAGE = "image",
+  TEXT = 'text',
+  IMAGE = 'image',
 }
 
 /**
@@ -59,12 +59,12 @@ export interface Model {
   /**
    * Any additional specs or configuration details for the model.
    */
-  model_spec: Record<string, any>;
+  model_spec: Record<string, unknown>;
 
   /**
    * Additional fields as provided by the API.
    */
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 /**
@@ -90,5 +90,5 @@ export interface ListModelsResponse {
   /**
    * Additional fields as provided by the API.
    */
-  [key: string]: any;
+  [key: string]: unknown;
 }

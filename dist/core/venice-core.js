@@ -5,8 +5,8 @@ class VeniceCore {
     constructor(opts) {
         this.options = {
             // options here
-            baseUrl: "https://api.venice.ai/api/v1",
-            ...opts
+            baseUrl: 'https://api.venice.ai/api/v1',
+            ...opts,
         };
     }
 }

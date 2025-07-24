@@ -1,6 +1,6 @@
-import { VeniceCore } from "../../core/venice-core";
-import { ApiRequest } from "../api-request";
-import { ImageGenerationRequest, ImageGenerationResponse } from "../../model/image";
+import { VeniceCore } from '../../core/venice-core';
+import { ApiRequest } from '../api-request';
+import { ImageGenerationRequest, ImageGenerationResponse } from '../../model/image';
 /**
  * Provides methods to interact with the Image generation endpoint.
  */

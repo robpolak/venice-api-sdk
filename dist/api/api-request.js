@@ -19,12 +19,11 @@ class ApiRequest {
             baseURL: this.options.baseUrl,
             timeout: this.options.request?.timeout,
         });
-        this.axiosInstance.interceptors.request.use((config) => {
-            if (!config.headers) {
-                config.headers = {};
+        this.axiosInstance.interceptors.request.use(config => {
+            if (config.headers != null) {
+                // Attach Bearer token using apiKey from VeniceSDKOptions
+                config.headers.Authorization = `Bearer ${this.options.apiKey}`;
             }
-            // Attach Bearer token using apiKey from VeniceSDKOptions
-            config.headers.Authorization = `Bearer ${this.options.apiKey}`;
             return config;
         });
     }
@@ -35,14 +34,15 @@ class ApiRequest {
      * @returns The merged Axios request configuration.
      */
     mergeConfig(config) {
-        const commonParams = this.options.request?.axiosParams || {};
-        return {
+        const commonParams = this.options.request?.axiosParams ?? {};
+        const mergedConfig = {
             ...config,
             params: {
                 ...commonParams,
-                ...(config && config.params),
+                ...config?.params,
             },
         };
+        return mergedConfig;
     }
     /**
      * Performs a GET request.

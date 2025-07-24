@@ -48,11 +48,11 @@ export interface Model {
     /**
      * Any additional specs or configuration details for the model.
      */
-    model_spec: Record<string, any>;
+    model_spec: Record<string, unknown>;
     /**
      * Additional fields as provided by the API.
      */
-    [key: string]: any;
+    [key: string]: unknown;
 }
 /**
  * The response from the Venice API when listing models.
@@ -74,5 +74,5 @@ export interface ListModelsResponse {
     /**
      * Additional fields as provided by the API.
      */
-    [key: string]: any;
+    [key: string]: unknown;
 }

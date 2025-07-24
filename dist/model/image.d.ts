@@ -14,7 +14,7 @@ export interface ImageGenerationRequest {
     /**
      * Additional optional fields supported by the API.
      */
-    [key: string]: any;
+    [key: string]: unknown;
 }
 /**
  * The response from the Venice API when generating images.
@@ -22,5 +22,5 @@ export interface ImageGenerationRequest {
 export interface ImageGenerationResponse {
     created: number;
     images: string[];
-    [key: string]: any;
+    [key: string]: unknown;
 }

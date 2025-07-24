@@ -1,0 +1,67 @@
+# Venice API SDK - Cursor Rules
+
+## Code Quality Standards
+
+### 🔍 Linting & Formatting - MANDATORY
+- **ALWAYS run ESLint before any commit**: `npm run lint`
+- **ALWAYS run Prettier for consistent formatting**: `npm run format`
+- **Fix all linting errors** - no warnings allowed in production code
+- **Use TypeScript strict mode** - leverage type safety to the fullest
+- **Follow consistent import ordering**: external deps → internal modules → types
+
+### 🧪 Testing Requirements - NEVER SKIP
+- **Write tests for ALL new features and bug fixes**
+- **Run full test suite before committing**: `npm test`
+- **Maintain >80% code coverage** for core functionality
+- **Integration tests required** for API-facing changes
+- **Unit tests required** for utility functions and models
+
+### 📁 File Organization
+- Keep related files together in appropriate directories
+- Use descriptive, consistent naming conventions
+- Export types/interfaces from dedicated files when shared
+- Organize imports: external deps → internal modules → types
+
+### 🛡️ TypeScript Best Practices
+- **Use explicit return types** for public methods
+- **Prefer interfaces over types** for object shapes
+- **Use strict null checks** - handle undefined/null explicitly
+- **Leverage union types** instead of any when possible
+- **Document complex type definitions** with JSDoc comments
+
+### 🚀 SDK Development Guidelines
+- **Maintain backward compatibility** - breaking changes need major version bump
+- **Provide clear error messages** with actionable context
+- **Include usage examples** in JSDoc for public APIs
+- **Validate inputs** at API boundaries
+- **Use consistent async patterns** (Promise-based, not callbacks)
+
+### 📝 Git Workflow
+- **Lint + test before every commit**
+- **Write descriptive commit messages**
+- **Keep commits atomic** - one logical change per commit
+- **Update tests when changing behavior**
+
+### 🔧 Development Commands (run these frequently!)
+```bash
+npm run lint        # Check for linting issues
+npm run lint:fix    # Auto-fix linting issues
+npm run format      # Format code with Prettier
+npm run test        # Run all tests
+npm run build       # Compile TypeScript
+```
+
+### ⚠️ Pre-commit Checklist
+- [ ] Code passes `npm run lint`
+- [ ] Code is formatted with `npm run format`
+- [ ] All tests pass with `npm test`
+- [ ] New features have tests
+- [ ] Breaking changes documented
+- [ ] Build succeeds with `npm run build`
+
+## When Making Changes
+1. **Always start with tests** - write test first when possible
+2. **Run linting in real-time** - fix issues as you code
+3. **Test edge cases** - null/undefined, empty arrays, network failures
+4. **Document public APIs** - JSDoc with examples
+5. **Validate before committing** - run full test suite + linting 

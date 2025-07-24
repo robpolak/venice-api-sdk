@@ -17,7 +17,7 @@ export interface ImageGenerationRequest {
   /**
    * Additional optional fields supported by the API.
    */
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 /**
@@ -26,5 +26,5 @@ export interface ImageGenerationRequest {
 export interface ImageGenerationResponse {
   created: number;
   images: string[];
-  [key: string]: any;
+  [key: string]: unknown;
 }

@@ -25,7 +25,7 @@ export declare class ApiRequest {
      * @param config - Optional Axios configuration.
      * @returns The response data.
      */
-    get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>;
+    get<T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T>;
     /**
      * Performs a POST request.
      *
@@ -34,7 +34,7 @@ export declare class ApiRequest {
      * @param config - Optional Axios configuration.
      * @returns The response data.
      */
-    post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
+    post<T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T>;
     /**
      * Performs a PUT request.
      *
@@ -43,7 +43,7 @@ export declare class ApiRequest {
      * @param config - Optional Axios configuration.
      * @returns The response data.
      */
-    put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
+    put<T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T>;
     /**
      * Performs a DELETE request.
      *
@@ -51,5 +51,5 @@ export declare class ApiRequest {
      * @param config - Optional Axios configuration.
      * @returns The response data.
      */
-    delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>;
+    delete<T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T>;
 }

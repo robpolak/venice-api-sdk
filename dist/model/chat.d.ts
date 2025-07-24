@@ -39,7 +39,7 @@ export interface ChatCompletionRequest {
     /**
      * Any additional fields supported by Venice's chat endpoint.
      */
-    [key: string]: any;
+    [key: string]: unknown;
 }
 /**
  * One choice in the chat completion response.
@@ -63,5 +63,5 @@ export interface ChatCompletionResponse {
         completion_tokens: number;
         total_tokens: number;
     };
-    [key: string]: any;
+    [key: string]: unknown;
 }

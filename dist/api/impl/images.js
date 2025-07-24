@@ -16,7 +16,7 @@ class ImagesApi extends api_request_1.ApiRequest {
      */
     async generateImages(request) {
         // According to the docs, the endpoint for image generation is /image/generate
-        return this.post("/image/generate", request);
+        return this.post('/image/generate', request);
     }
 }
 exports.ImagesApi = ImagesApi;
