@@ -1,6 +1,6 @@
 {
   "name": "venice-api-sdk",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -25,7 +25,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "axios": "^1.7.9"
+    "@coinbase/wallet-sdk": "^4.0.0",
+    "axios": "^1.7.9",
+    "ethers": "^6.0.0",
+    "ox": "^0.1.0",
+    "viem": "^2.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
