@@ -35,12 +35,13 @@ describe('Model Recommendations Unit Test', () => {
 
     // Check for actual Venice image models
     const veniceImageModels = [
-      'fluently-xl',
       'venice-sd35',
+      'stable-diffusion-3.5',
       'flux-dev',
       'flux-dev-uncensored',
-      'hi-dream',
+      'hidream',
       'pony-realism',
+      'lustify-sdxl',
     ];
 
     veniceImageModels.forEach(modelId => {

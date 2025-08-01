@@ -121,58 +121,53 @@ export const MODEL_RECOMMENDATIONS: ModelRecommendation[] = [
 
   // Image Generation Models
   {
-    id: 'fluently-xl',
-    name: 'Fluently XL v4',
+    id: 'venice-sd35',
+    name: 'Venice SD35',
     description:
-      'Default image model with improved aesthetics, lighting, and realistic anatomy rendering',
-    useCase: ['image generation', 'general purpose images', 'realistic rendering', 'nature scenes'],
+      "Venice's custom Stable Diffusion 3.5 model with improved aesthetics, lighting, and realistic anatomy rendering",
+    useCase: ['general purpose', 'high quality', 'photorealistic', 'artistic'],
     pros: [
       'Default Venice image model',
-      'Improved aesthetics',
-      'Better lighting/contrast',
-      'Realistic anatomy',
+      'Balanced quality and speed',
+      'Great anatomy',
+      'Excellent lighting',
     ],
     pricing: 'low',
     performance: 'balanced',
   },
   {
-    id: 'venice-sd35',
-    name: 'Venice SD35',
+    id: 'stable-diffusion-3.5',
+    name: 'Stable Diffusion 3.5',
     description:
-      'Custom Stable Diffusion 3.5 with significant photorealism improvements and better prompt understanding',
-    useCase: [
-      'photorealistic images',
-      'complex prompts',
-      'professional photography',
-      'reduced artifacts',
-    ],
+      'Latest Stable Diffusion 3.5 Large model from Stability AI with enhanced quality and coherence',
+    useCase: ['general purpose', 'high quality', 'photorealistic', 'artistic'],
     pros: [
-      'Photorealistic textures',
-      'Better prompt following',
-      'Reduced artifacts',
-      'Artistic range',
+      'Latest SD version',
+      'High quality output',
+      'Improved prompt adherence',
+      'Better text rendering',
     ],
-    pricing: 'medium',
+    pricing: 'low',
     performance: 'balanced',
   },
   {
     id: 'flux-dev',
-    name: 'FLUX',
+    name: 'FLUX Standard',
     description:
-      'State-of-the-art image generation with excellent prompt-following and visual quality',
-    useCase: [
-      'high-quality images',
-      'complex workflows',
-      'creative applications',
-      'detailed outputs',
+      'State-of-the-art FLUX.1-dev model with exceptional prompt adherence and image quality',
+    useCase: ['highest quality', 'complex prompts', 'artistic', 'professional'],
+    pros: [
+      'Best prompt adherence',
+      'Highest quality',
+      'Complex compositions',
+      'Professional results',
     ],
-    pros: ['Best image quality', 'Excellent prompt following', 'High detail', 'Output diversity'],
     pricing: 'medium',
     performance: 'best',
   },
   {
     id: 'flux-dev-uncensored',
-    name: 'FLUX Uncensored',
+    name: 'FLUX Custom',
     description:
       'Uncensored LoRA-modified FLUX with adjustable censorship removal via LoRA strength',
     useCase: ['uncensored content', 'NSFW generation', 'creative freedom', 'flexible censorship'],
@@ -186,8 +181,8 @@ export const MODEL_RECOMMENDATIONS: ModelRecommendation[] = [
     performance: 'best',
   },
   {
-    id: 'hi-dream',
-    name: 'Hi-Dream',
+    id: 'hidream',
+    name: 'HiDream',
     description:
       '17B parameter foundation model for photorealistic, cartoon, and artistic styles with high prompt adherence',
     useCase: ['artistic styles', 'photorealistic', 'cartoon style', 'diverse art styles'],
@@ -204,7 +199,7 @@ export const MODEL_RECOMMENDATIONS: ModelRecommendation[] = [
     id: 'pony-realism',
     name: 'Pony Realism',
     description:
-      'Specialized model for highly detailed realistic images of people, landscapes, and still-life',
+      'Specialized model for highly detailed realistic images of people, landscapes, and still-life (most uncensored)',
     useCase: [
       'realistic people',
       'landscapes',
@@ -212,7 +207,17 @@ export const MODEL_RECOMMENDATIONS: ModelRecommendation[] = [
       'detailed textures',
       'portrait photography',
     ],
-    pros: ['Highly detailed', 'Realistic rendering', 'Great for people', 'Intricate textures'],
+    pros: ['Highly detailed', 'Realistic rendering', 'Great for people', 'Most uncensored'],
+    pricing: 'medium',
+    performance: 'balanced',
+  },
+  {
+    id: 'lustify-sdxl',
+    name: 'Lustify SDXL',
+    description:
+      'NSFW-focused SDXL checkpoint for adult content generation with enhanced anatomy and detail',
+    useCase: ['NSFW content', 'adult themes', 'anatomical accuracy', 'artistic nudity'],
+    pros: ['NSFW optimized', 'Enhanced anatomy', 'SDXL quality', 'Artistic freedom'],
     pricing: 'medium',
     performance: 'balanced',
   },
