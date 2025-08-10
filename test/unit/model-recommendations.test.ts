@@ -15,11 +15,12 @@ describe('Model Recommendations Unit Test', () => {
     // Check for actual Venice text models
     const veniceTextModels = [
       'qwen3-4b',
-      'mistral-31-24b',
-      'dolphin-2.9.2-qwen2-72b', // Venice Uncensored
+      'mistral-32-24b',
+      'dolphin-2.9.2-qwen2-72b',
       'qwen-2.5-qwq-32b',
       'qwen3-235b',
       'llama-3.1-405b',
+      'llama-3.3-70b',
     ];
 
     veniceTextModels.forEach(modelId => {
@@ -60,7 +61,7 @@ describe('Model Recommendations Unit Test', () => {
     // Should include Mistral and Qwen models which are good for coding
     const hasCodingModel = codingModels.some(
       model =>
-        model.id === 'mistral-31-24b' ||
+        model.id === 'mistral-32-24b' ||
         model.id === 'qwen3-235b' ||
         model.id === 'qwen-2.5-qwq-32b'
     );
@@ -72,12 +73,13 @@ describe('Model Recommendations Unit Test', () => {
 
     expect(writingModels.length).toBeGreaterThan(0);
 
-    // Should include Venice Uncensored which is good for creative writing
+    // Should include uncensored models which are good for creative writing
     const hasCreativeModel = writingModels.some(model => model.id === 'dolphin-2.9.2-qwen2-72b');
     expect(hasCreativeModel).toBe(true);
   });
 
-  test('should recommend appropriate models for image generation', () => {
+  // Skip image model test since image models were removed from the SDK
+  test.skip('should recommend appropriate models for image generation', () => {
     const imageModels = agentFactory.getModelRecommendations('image');
 
     expect(imageModels.length).toBeGreaterThan(0);
@@ -98,7 +100,7 @@ describe('Model Recommendations Unit Test', () => {
     expect(fastModels.some(m => m.id === 'qwen3-4b')).toBe(true);
 
     // Balanced should include medium models like Mistral
-    expect(balancedModels.some(m => m.id === 'mistral-31-24b')).toBe(true);
+    expect(balancedModels.some(m => m.id === 'mistral-32-24b')).toBe(true);
 
     // Best should include large models like Qwen3-235B
     expect(bestModels.some(m => m.id === 'qwen3-235b')).toBe(true);
@@ -113,7 +115,7 @@ describe('Model Recommendations Unit Test', () => {
     expect(lowPricing.some(m => m.id === 'qwen3-4b')).toBe(true);
 
     // Medium should include mid-size models
-    expect(mediumPricing.some(m => m.id === 'mistral-31-24b')).toBe(true);
+    expect(mediumPricing.some(m => m.id === 'mistral-32-24b')).toBe(true);
 
     // High should include large models
     expect(highPricing.some(m => m.id === 'llama-3.1-405b')).toBe(true);
@@ -147,7 +149,7 @@ describe('Model Recommendations Unit Test', () => {
 
     expect(result).toBeDefined();
     expect(result?.id).toBe('dolphin-2.9.2-qwen2-72b');
-    expect(result?.name).toBe('Venice Uncensored (Dolphin Mistral 24B)');
+    expect(result?.name).toBe('Dolphin 72B');
   });
 
   test('should return Venice Uncensored as default model', () => {
@@ -159,11 +161,11 @@ describe('Model Recommendations Unit Test', () => {
     // Should default to Venice Uncensored when no specific models are loaded
     expect(defaultModel).toBe('dolphin-2.9.2-qwen2-72b');
 
-    // Verify it's actually Venice Uncensored model
+    // Verify it's actually the Dolphin model
     const allRecommendations = agentFactory.getModelRecommendations();
     const veniceUncensored = allRecommendations.find(m => m.id === defaultModel);
     expect(veniceUncensored).toBeDefined();
-    expect(veniceUncensored?.name).toBe('Venice Uncensored (Dolphin Mistral 24B)');
+    expect(veniceUncensored?.name).toBe('Dolphin 72B');
   });
 
   test('should have proper model structure for all recommendations', () => {

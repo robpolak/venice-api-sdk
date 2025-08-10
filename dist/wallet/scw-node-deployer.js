@@ -52,7 +52,7 @@ class SCWNodeDeployer {
         const keypair = await ox_1.WebCryptoP256.createKeyPair({ extractable: false });
         return {
             privateKey: keypair.privateKey,
-            publicKey: keypair.publicKey
+            publicKey: keypair.publicKey,
         };
     }
     /**
@@ -74,17 +74,17 @@ class SCWNodeDeployer {
             type: 'webauthn.get',
             challenge: Buffer.from(challenge.slice(2), 'hex').toString('base64url'),
             origin: this.origin,
-            crossOrigin: false
+            crossOrigin: false,
         };
         const clientDataJSON = JSON.stringify(clientData);
         return {
             signature: ox_1.Signature.toHex(signature),
             webauthn: {
-                authenticatorData: '0x' + authenticatorData.toString('hex'),
-                clientDataJSON: '0x' + Buffer.from(clientDataJSON).toString('hex'),
+                authenticatorData: `0x${authenticatorData.toString('hex')}`,
+                clientDataJSON: `0x${Buffer.from(clientDataJSON).toString('hex')}`,
                 typeIndex: clientDataJSON.indexOf('"type":'),
-                challengeIndex: clientDataJSON.indexOf('"challenge":')
-            }
+                challengeIndex: clientDataJSON.indexOf('"challenge":'),
+            },
         };
     }
     /**
@@ -129,10 +129,11 @@ class SCWNodeDeployer {
         const { encodeAbiParameters } = require('viem');
         // Extract r, s from signature
         const sigBuffer = Buffer.from(signature.slice(2), 'hex');
-        const r = '0x' + sigBuffer.slice(0, 32).toString('hex');
-        const s = '0x' + sigBuffer.slice(32, 64).toString('hex');
+        const r = `0x${sigBuffer.slice(0, 32).toString('hex')}`;
+        const s = `0x${sigBuffer.slice(32, 64).toString('hex')}`;
         // Encode WebAuthnAuth struct
-        const webAuthnAuthData = encodeAbiParameters([{
+        const webAuthnAuthData = encodeAbiParameters([
+            {
                 type: 'tuple',
                 components: [
                     { name: 'authenticatorData', type: 'bytes' },
@@ -142,25 +143,32 @@ class SCWNodeDeployer {
                     { name: 'r', type: 'uint256' },
                     { name: 's', type: 'uint256' },
                 ],
-            }], [{
+            },
+        ], [
+            {
                 authenticatorData: webauthn.authenticatorData,
                 clientDataJSON: webauthn.clientDataJSON,
                 challengeIndex: BigInt(webauthn.challengeIndex),
                 typeIndex: BigInt(webauthn.typeIndex),
                 r: BigInt(r),
                 s: BigInt(s),
-            }]);
+            },
+        ]);
         // Wrap in SignatureWrapper
-        return encodeAbiParameters([{
+        return encodeAbiParameters([
+            {
                 type: 'tuple',
                 components: [
                     { name: 'ownerIndex', type: 'uint256' },
                     { name: 'signatureData', type: 'bytes' },
                 ],
-            }], [{
+            },
+        ], [
+            {
                 ownerIndex: BigInt(ownerIndex),
                 signatureData: webAuthnAuthData,
-            }]);
+            },
+        ]);
     }
 }
 exports.SCWNodeDeployer = SCWNodeDeployer;
@@ -173,13 +181,11 @@ const createTestEIP712Message = (scwAddress) => ({
         verifyingContract: scwAddress,
     },
     types: {
-        CoinbaseSmartWalletMessage: [
-            { name: 'hash', type: 'bytes32' },
-        ],
+        CoinbaseSmartWalletMessage: [{ name: 'hash', type: 'bytes32' }],
     },
     primaryType: 'CoinbaseSmartWalletMessage',
     message: {
-        hash: '0x' + Buffer.from('Hello from Venice AI SDK!').toString('hex').padEnd(64, '0'),
+        hash: `0x${Buffer.from('Hello from Venice AI SDK!').toString('hex').padEnd(64, '0')}`,
     },
 });
 exports.createTestEIP712Message = createTestEIP712Message;

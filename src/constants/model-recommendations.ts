@@ -27,8 +27,8 @@ export const MODEL_RECOMMENDATIONS: ModelRecommendation[] = [
 
   // Balanced Models
   {
-    id: 'mistral-31-24b',
-    name: 'Mistral Small 3.1 24B',
+    id: 'mistral-32-24b',
+    name: 'Venice Medium (3.2)',
     description:
       '24B parameter model with vision capability, excellent for function calling and JSON formatting',
     useCase: [
@@ -50,10 +50,29 @@ export const MODEL_RECOMMENDATIONS: ModelRecommendation[] = [
     performance: 'balanced',
   },
   {
-    id: 'dolphin-2.9.2-qwen2-72b', // Venice Uncensored
-    name: 'Venice Uncensored (Dolphin Mistral 24B)',
+    id: 'llama-3.3-70b',
+    name: 'Llama 3.3 70B',
     description:
-      'Uncensored 24B model with 2.20% refusal rate, excellent for creative writing and storytelling',
+      'Balanced high-intelligence model with strong general performance and function calling support',
+    useCase: ['general chat', 'coding', 'function calling', 'analysis', 'multilingual'],
+    pros: ['Balanced intelligence', 'Strong generalist', 'Function calling', 'Good default choice'],
+    pricing: 'medium',
+    performance: 'balanced',
+  },
+  {
+    id: 'llama-3.2-3b',
+    name: 'Llama 3.2 3B',
+    description: 'Fastest small model for simple tasks and quick responses',
+    useCase: ['quick responses', 'cost-effective', 'simple tasks'],
+    pros: ['Very fast', 'Low cost', 'Great for simple tasks'],
+    pricing: 'low',
+    performance: 'fast',
+  },
+  {
+    id: 'dolphin-2.9.2-qwen2-72b',
+    name: 'Dolphin 72B',
+    description:
+      'Uncensored 72B model, excellent for creative writing and storytelling with minimal refusals',
     useCase: [
       'creative writing',
       'storytelling',
@@ -71,6 +90,15 @@ export const MODEL_RECOMMENDATIONS: ModelRecommendation[] = [
     performance: 'balanced',
   },
   {
+    id: 'venice-uncensored',
+    name: 'Venice Uncensored 1.1',
+    description: 'Venice uncensored model with no content filtering',
+    useCase: ['uncensored content', 'creative writing'],
+    pros: ['No content filtering'],
+    pricing: 'medium',
+    performance: 'balanced',
+  },
+  {
     id: 'qwen-2.5-qwq-32b',
     name: 'Qwen QWQ 32B',
     description:
@@ -82,6 +110,42 @@ export const MODEL_RECOMMENDATIONS: ModelRecommendation[] = [
       'Complex task breakdown',
       'Thorough responses',
     ],
+    pricing: 'medium',
+    performance: 'balanced',
+  },
+  {
+    id: 'qwen-2.5-coder-32b',
+    name: 'Qwen 2.5 Coder 32B',
+    description: 'Code generation specialized model with strong reasoning for code',
+    useCase: ['coding', 'code generation', 'function calling'],
+    pros: ['Great for code', 'Deterministic structure'],
+    pricing: 'medium',
+    performance: 'balanced',
+  },
+  {
+    id: 'deepseek-r1-671b',
+    name: 'DeepSeek R1 671B',
+    description: 'Advanced reasoning model specialized for complex multi-step logical tasks',
+    useCase: ['complex reasoning', 'analysis', 'problem solving', 'research'],
+    pros: ['Most powerful reasoning', 'Very thorough'],
+    pricing: 'high',
+    performance: 'best',
+  },
+  {
+    id: 'deepseek-coder-v2-lite',
+    name: 'DeepSeek Coder V2 Lite',
+    description: 'Lightweight coding model optimized for code generation tasks',
+    useCase: ['coding', 'code generation'],
+    pros: ['Lightweight', 'Good for code'],
+    pricing: 'medium',
+    performance: 'balanced',
+  },
+  {
+    id: 'qwen-2.5-vl',
+    name: 'Qwen 2.5 VL 72B',
+    description: 'Vision-language model for image understanding and multimodal tasks',
+    useCase: ['vision tasks', 'image understanding'],
+    pros: ['Vision capability'],
     pricing: 'medium',
     performance: 'balanced',
   },

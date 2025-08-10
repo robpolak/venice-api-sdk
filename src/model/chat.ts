@@ -14,6 +14,11 @@ export interface ChatMessage {
   role: ChatMessageRole;
   content: string;
   answer?: string;
+  /**
+   * If the response was requested with a structured response format (e.g. JSON schema),
+   * this field will contain the parsed object when available.
+   */
+  parsed?: unknown;
 }
 
 /**
@@ -43,9 +48,40 @@ export interface ChatCompletionRequest {
   top_p?: number;
 
   /**
+   * Structured response format following OpenAI-compatible schema.
+   * When provided, the API will try to return output matching the schema.
+   */
+  response_format?: ResponseFormat;
+
+  /**
    * Any additional fields supported by Venice's chat endpoint.
    */
   [key: string]: unknown;
+}
+
+/**
+ * Supported response format for structured outputs.
+ * This follows the OpenAI-compatible shape used by Venice.
+ *
+ * Note: Not all models support structured responses. Check model capabilities
+ * for supportsResponseSchema.
+ */
+export type ResponseFormat = JsonSchemaResponseFormat | Record<string, unknown>;
+
+/**
+ * OpenAI-compatible JSON schema response format.
+ * See docs: https://docs.venice.ai/overview/guides/structured-responses
+ */
+export interface JsonSchemaResponseFormat {
+  type: 'json_schema';
+  json_schema: {
+    /** A name for the schema */
+    name: string;
+    /** Must be true for strict schema enforcement */
+    strict: boolean;
+    /** The JSON schema object. Use additionalProperties: false and include required fields. */
+    schema: Record<string, unknown>;
+  };
 }
 
 /**

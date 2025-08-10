@@ -55,17 +55,32 @@ export class ChatApi extends ApiRequest {
   ): Promise<ChatCompletionResponse> {
     const resp = await this.post<ChatCompletionResponse>('/chat/completions', request);
 
-    // Loop over each choice and parse out the <think> block from the content.
+    // Loop over each choice and:
+    // - parse out <think> blocks
+    // - attempt to JSON.parse structured outputs when present
     resp?.choices?.forEach(choice => {
-      if (typeof choice?.message?.content === 'string') {
-        const rawContent = choice.message.content;
+      const message = choice?.message;
+      if (message != null && typeof message.content === 'string') {
+        const rawContent = message.content;
         const { thinkBlock, finalAnswer } = separateThinkAndAnswer(rawContent);
 
-        // Overwrite the message content with the final answer
-        choice.message.answer = finalAnswer;
-
-        // Attach the think block as a custom field on this choice.
+        // Overwrite the message answer with the final answer segment
+        message.answer = finalAnswer;
         (choice as ExtendedChatChoice).thinkBlock = thinkBlock;
+
+        // If the model returned a structured JSON object as the primary content,
+        // try to parse it to expose a typed object for consumers.
+        const trimmed = (finalAnswer || rawContent).trim();
+        if (
+          (trimmed.startsWith('{') && trimmed.endsWith('}')) ||
+          (trimmed.startsWith('[') && trimmed.endsWith(']'))
+        ) {
+          try {
+            message.parsed = JSON.parse(trimmed);
+          } catch {
+            // best-effort; leave parsed undefined if not valid JSON
+          }
+        }
       }
     });
 

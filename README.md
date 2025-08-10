@@ -1,3 +1,57 @@
+## Structured Responses
+
+The SDK supports Venice structured outputs using `response_format` (OpenAI-compatible) as documented in the Venice guide: [Structured Responses](https://docs.venice.ai/overview/guides/structured-responses).
+
+Example:
+
+```ts
+import { VeniceSDK } from 'venice-api-sdk';
+
+const sdk = await VeniceSDK.New({ apiKey: process.env.venice_api_key! });
+
+const resp = await sdk.api.chat.createChatCompletion({
+  model: 'dolphin-2.9.2-qwen2-72b',
+  messages: [
+    { role: 'system' as any, content: 'You are a helpful math tutor.' },
+    { role: 'user' as any, content: 'solve 8x + 31 = 2' },
+  ],
+  response_format: {
+    type: 'json_schema',
+    json_schema: {
+      name: 'math_response',
+      strict: true,
+      schema: {
+        type: 'object',
+        properties: {
+          steps: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                explanation: { type: 'string' },
+                output: { type: 'string' },
+              },
+              required: ['explanation', 'output'],
+              additionalProperties: false,
+            },
+          },
+          final_answer: { type: 'string' },
+        },
+        required: ['steps', 'final_answer'],
+        additionalProperties: false,
+      },
+    },
+  },
+});
+
+// Parsed JSON object available when the model returns valid JSON:
+console.log(resp.choices[0].message.parsed);
+```
+
+Notes:
+- Ensure `strict: true` and `additionalProperties: false` for proper enforcement.
+- All fields should be in `required`, and optional fields can specify a union with `null` type.
+- Not all models support structured responses; look for `supportsResponseSchema` in model capabilities.
 # Venice AI SDK - Agent-Focused Development Platform
 
 A comprehensive TypeScript/JavaScript SDK for Venice AI that enables building **automated agents** with **context injection**, **model recommendations**, and **persistent memory**.

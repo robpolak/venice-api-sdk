@@ -11,6 +11,8 @@ export {
   ChatMessage,
   ChatCompletionRequest,
   ChatCompletionResponse,
+  ResponseFormat,
+  JsonSchemaResponseFormat,
 } from './model/chat';
 export { ImageGenerationRequest, ImageGenerationResponse } from './model/image';
 export { Model, ModelType, ListModelsRequest, ListModelsResponse } from './model/models';

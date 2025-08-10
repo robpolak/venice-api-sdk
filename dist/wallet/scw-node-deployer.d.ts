@@ -56,6 +56,6 @@ export declare const createTestEIP712Message: (scwAddress: string) => {
     };
     primaryType: "CoinbaseSmartWalletMessage";
     message: {
-        hash: `0x${string}`;
+        hash: string;
     };
 };

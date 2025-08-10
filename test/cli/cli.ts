@@ -220,9 +220,9 @@ function promptUser(question: string): Promise<string> {
         }
       } else if (operation === 'Smart Contract Wallet') {
         // ---- Smart Contract Wallet Flow ----
-        
+
         console.log('\n🔐 Smart Contract Wallet Operations\n');
-        
+
         const { scwOperation } = await inquirer.prompt<{ scwOperation: string }>([
           {
             type: 'list',
@@ -233,7 +233,7 @@ function promptUser(question: string): Promise<string> {
               'Sign Plain Message',
               'Sign EIP-712 Message',
               'Full Demo',
-              'Back to Main Menu'
+              'Back to Main Menu',
             ],
           },
         ]);
@@ -244,97 +244,94 @@ function promptUser(question: string): Promise<string> {
 
         // Initialize SCW deployer
         const scwDeployer = new SCWNodeDeployer('https://keys.coinbase.com');
-        
+
         if (scwOperation === 'Generate P256 Keypair') {
           console.log('\n🔑 Generating P256 keypair...');
           const keypair = await scwDeployer.generateP256Keypair();
           const account = await scwDeployer.createWebAuthnAccount(keypair);
-          
+
           console.log('✅ P256 keypair generated!');
           console.log(`   Public Key: ${account.publicKey}`);
           console.log(`   SCW Address: ${scwDeployer.calculateSCWAddress(account.publicKey)}`);
-          
         } else if (scwOperation === 'Sign Plain Message') {
           console.log('\n📝 Signing plain message...');
-          
+
           // Generate keypair
           const keypair = await scwDeployer.generateP256Keypair();
           const account = await scwDeployer.createWebAuthnAccount(keypair);
-          
+
           const { message } = await inquirer.prompt<{ message: string }>([
             {
               type: 'input',
               name: 'message',
               message: 'Enter message to sign:',
-              default: 'Hello from Venice AI SDK!'
+              default: 'Hello from Venice AI SDK!',
             },
           ]);
-          
+
           const signature = await account.signMessage({ message });
-          
+
           console.log('\n✅ Message signed!');
           console.log(`   Message: ${message}`);
           console.log(`   Signature: ${signature.signature}`);
           console.log(`   WebAuthn: ${JSON.stringify(signature.webauthn, null, 2)}`);
-          
         } else if (scwOperation === 'Sign EIP-712 Message') {
           console.log('\n📋 Signing EIP-712 typed data...');
-          
+
           // Generate keypair
           const keypair = await scwDeployer.generateP256Keypair();
           const account = await scwDeployer.createWebAuthnAccount(keypair);
           const scwAddress = scwDeployer.calculateSCWAddress(account.publicKey);
-          
+
           // Create EIP-712 message
           const eip712Message = createNodeTestEIP712Message(scwAddress);
-          
+
           console.log('📝 EIP-712 Message:');
           console.log(`   Domain: ${eip712Message.domain.name}`);
           console.log(`   Version: ${eip712Message.domain.version}`);
           console.log(`   Chain ID: ${eip712Message.domain.chainId}`);
           console.log(`   Contract: ${eip712Message.domain.verifyingContract}`);
-          
+
           const signature = await account.signTypedData(eip712Message);
-          
+
           // Format for SCW
           const formattedSig = scwDeployer.formatWebAuthnSignature(
             signature.signature,
             signature.webauthn,
             0
           );
-          
+
           console.log('\n✅ EIP-712 message signed!');
           console.log(`   Raw Signature: ${signature.signature.slice(0, 66)}...`);
           console.log(`   Formatted for SCW: ${formattedSig.slice(0, 66)}...`);
           console.log(`   Length: ${formattedSig.length} chars`);
-          
         } else if (scwOperation === 'Full Demo') {
           console.log('\n🎯 Running full SCW demo...\n');
-          
+
           // Step 1: Generate keypair
           console.log('1️⃣ Generating P256 keypair...');
           const keypair = await scwDeployer.generateP256Keypair();
           const account = await scwDeployer.createWebAuthnAccount(keypair);
           console.log('✅ Keypair generated');
-          
+
           // Step 2: Calculate SCW address
           console.log('\n2️⃣ Calculating SCW address...');
           const scwAddress = scwDeployer.calculateSCWAddress(account.publicKey);
           console.log(`✅ SCW Address: ${scwAddress}`);
-          
+
           // Step 3: Sign plain message
           console.log('\n3️⃣ Signing plain message...');
           const plainMessage = 'Venice AI + Coinbase Wallet = 🚀';
           const plainSig = await account.signMessage({ message: plainMessage });
           console.log(`✅ Signed: "${plainMessage}"`);
           console.log(`   Signature: ${plainSig.signature.slice(0, 20)}...`);
-          
+
           // Step 4: Sign EIP-712
           console.log('\n4️⃣ Signing EIP-712 message...');
           const eip712Message = createNodeTestEIP712Message(scwAddress);
           const typedSig = await account.signTypedData(eip712Message);
           console.log('✅ EIP-712 signed');
-          
+
           // Step 5: Format for SCW
           console.log('\n5️⃣ Formatting for SCW validation...');
           const formattedSig = scwDeployer.formatWebAuthnSignature(
@@ -343,7 +340,7 @@ function promptUser(question: string): Promise<string> {
             0
           );
           console.log(`✅ Formatted (${formattedSig.length} chars)`);
-          
+
           console.log('\n🎉 Demo complete! All operations successful.');
         }
       }
